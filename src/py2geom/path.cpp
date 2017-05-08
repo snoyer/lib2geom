@@ -119,9 +119,9 @@ void py_cairo_rectangle(object cr, Geom::Rect const &r) {
     cairo_rectangle(cairo_t_from_object(cr), r);
 }
 
-void py_cairo_convex_hull(object cr, Geom::ConvexHull const &r) {
+/*void py_cairo_convex_hull(object cr, Geom::ConvexHull const &r) {
     cairo_convex_hull(cairo_t_from_object(cr), r);
-}
+}*/
 /*void py_cairo_path(object cr, Geom::Path const &p) {
     cairo_path(cairo_t_from_object(cr), p);
     }*/
@@ -240,7 +240,7 @@ void cairo_curve_to(cairo_t *cr, Geom::Point p1, Geom::Point p2, Geom::Point p3)
     def("cubicbezierpath_from_sbasis", Geom::cubicbezierpath_from_sbasis);
 
     //def("cairo_curve", cairo_curve);
-    def("cairo_convex_hull", py_cairo_convex_hull);
+    //def("cairo_convex_hull", py_cairo_convex_hull);
     def("cairo_path", cp_1);
     def("cairo_path", cp_2);
     def("cairo_path_stitches", cps_1);
