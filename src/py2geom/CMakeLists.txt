@@ -106,6 +106,8 @@ IF(2GEOM_BOOST_PYTHON)
             TARGET_LINK_LIBRARIES(py2geom 2geom ${PYTHON_LIBRARIES})
         ELSE (BUILD_BOOST_PYTHON_STATIC)
             TARGET_LINK_LIBRARIES(py2geom 2geom ${BOOST_PYTHON_LIBRARY} ${PYTHON_LIBRARIES})
+            TARGET_LINK_LIBRARIES(py2geom 2geom boost_python) # BOOST_PYTHON_LIBRARY is empty for some reason :(
+            #FIXME find out what's going on here
         ENDIF (BUILD_BOOST_PYTHON_STATIC)
 
         IF(pycairo_FOUND)
