@@ -33,6 +33,7 @@
 
 #include <2geom/path-sink.h>
 #include <2geom/svg-path-parser.h>
+#include <2geom/svg-path-writer.h>
 
 
 using namespace boost::python;
@@ -54,10 +55,17 @@ class PathSinkWrap: public Geom::PathSink, public wrapper<Geom::PathSink> {
     void flush() {this->get_override("flush")();}
 };
 
+
+std::string format_svg_path(Geom::PathVector* path) {
+    return Geom::write_svg_path(*path);
+}
+
 void wrap_parser() {
     def("parse_svg_path", parse_svg_path_str_sink);
     def("parse_svg_path", parse_svg_path_str);
     def("read_svgd", Geom::read_svgd);
+
+    def("format_svg_path", format_svg_path);
 
     class_<PathSinkWrap, boost::noncopyable>("PathSink")
         .def("moveTo", pure_virtual(&Geom::PathSink::moveTo))
