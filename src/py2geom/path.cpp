@@ -79,11 +79,11 @@ struct CurveWrap : Geom::Curve, wrapper<Geom::Curve>
     int default_winding(Geom::Point p) const { return this->Geom::Curve::winding(p); }
 
     Geom::Curve *portion(double f, double t) const { return this->get_override("portion")(f,t); }
-    Geom::Curve *reverse() const { 
+    Geom::Curve *reverse() const {
         if (override f = this->get_override("reverse")) {
             return f();
         }
-        return Geom::Curve::reverse(); 
+        return Geom::Curve::reverse();
     }
     Geom::Curve *default_reverse() const { return this->Geom::Curve::reverse(); }
 
@@ -119,9 +119,9 @@ void py_cairo_rectangle(object cr, Geom::Rect const &r) {
     cairo_rectangle(cairo_t_from_object(cr), r);
 }
 
-/*void py_cairo_convex_hull(object cr, Geom::ConvexHull const &r) {
+void py_cairo_convex_hull(object cr, Geom::ConvexHull const &r) {
     cairo_convex_hull(cairo_t_from_object(cr), r);
-}*/
+}
 /*void py_cairo_path(object cr, Geom::Path const &p) {
     cairo_path(cairo_t_from_object(cr), p);
     }*/

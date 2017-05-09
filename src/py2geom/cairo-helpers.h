@@ -14,7 +14,7 @@ void cairo_curve_to(cairo_t *cr, Geom::Point p1, Geom::Point p2, Geom::Point p3)
 
 void cairo_curve(cairo_t *cr, Geom::Curve const &c);
 void cairo_rectangle(cairo_t *cr, Geom::Rect const &r);
-// void cairo_convex_hull(cairo_t *cr, Geom::ConvexHull const &r);
+void cairo_convex_hull(cairo_t *cr, Geom::ConvexHull const &r);
 void cairo_path(cairo_t *cr, Geom::Path const &p);
 void cairo_path(cairo_t *cr, Geom::PathVector const &p);
 void cairo_path_stitches(cairo_t *cr, Geom::Path const &p);

@@ -21,7 +21,7 @@ cairo_line_to (cairo_t *cr, Geom::Point p1) {
 }
 
 void
-cairo_curve_to (cairo_t *cr, Geom::Point p1, 
+cairo_curve_to (cairo_t *cr, Geom::Point p1,
         Geom::Point p2, Geom::Point p3) {
     cairo_curve_to(cr, p1[0], p1[1],
                p2[0], p2[1],
@@ -32,16 +32,13 @@ void cairo_rectangle(cairo_t *cr, Rect const& r) {
     cairo_rectangle(cr, r.left(), r.top(), r.width(), r.height());
 }
 
-//FIXME boundary is private, rewrite using begin() and end() to iterate
-/*
 void cairo_convex_hull(cairo_t *cr, ConvexHull const& ch) {
     if(ch.empty()) return;
-    cairo_move_to(cr, ch.boundary.back());
-    for(unsigned i = 0; i < ch.boundary.size(); i++) {
-        cairo_line_to(cr, ch.boundary[i]);
+    cairo_move_to(cr, ch.back());
+    for(unsigned i = 0; i < ch.size(); i++) {
+        cairo_line_to(cr, ch[i]);
     }
 }
-*/
 
 void cairo_curve(cairo_t *cr, Curve const& c) {
     if(LineSegment const* line_segment = dynamic_cast<LineSegment const*>(&c)) {
@@ -51,8 +48,8 @@ void cairo_curve(cairo_t *cr, Curve const& c) {
         std::vector<Point> points = quadratic_bezier->controlPoints();
         Point b1 = points[0] + (2./3) * (points[1] - points[0]);
         Point b2 = b1 + (1./3) * (points[2] - points[0]);
-        cairo_curve_to(cr, b1[0], b1[1], 
-                       b2[0], b2[1], 
+        cairo_curve_to(cr, b1[0], b1[1],
+                       b2[0], b2[1],
                        points[2][0], points[2][1]);
     }
     else if(CubicBezier const *cubic_bezier = dynamic_cast<CubicBezier const*>(&c)) {
@@ -97,7 +94,7 @@ void cairo_path_stitches(cairo_t *cr, Path const &p) {
         if (dynamic_cast<Path::StitchSegment const *>(&c)) {
             cairo_move_to(cr, c.initialPoint()[X], c.initialPoint()[Y]);
             cairo_line_to(cr, c.finalPoint()[X], c.finalPoint()[Y]);
-            
+
             //std::stringstream s;
             //s << L1(c.finalPoint() - c.initialPoint());
             //std::string ss = s.str();

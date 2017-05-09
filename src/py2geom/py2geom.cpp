@@ -40,7 +40,7 @@ using namespace boost::python;
 
 BOOST_PYTHON_MODULE(_py2geom)
 {
-    
+
     /*enum_<IntersectorKind>("IntersectorKind")
         .value("intersects", intersects)
         .value("parallel", parallel)
@@ -48,7 +48,7 @@ BOOST_PYTHON_MODULE(_py2geom)
         .value("no_intersection", no_intersection)
     ;
     def("segment_intersect", segment_intersect);*/
-    
+
     wrap_point();
     wrap_etc();
     wrap_interval();
@@ -68,7 +68,7 @@ BOOST_PYTHON_MODULE(_py2geom)
     wrap_ray();
     //wrap_shape();
     wrap_crossing();
-    //wrap_convex_cover();
+    wrap_convex_hull();
 
 }
 

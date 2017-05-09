@@ -17,7 +17,7 @@ d2.cpp
 parser.cpp
 path.cpp
 ray.cpp
-#convexcover.cpp
+convexhull.cpp
 py2geom.cpp
 # curves
 #curve.cpp
@@ -126,6 +126,3 @@ IF(2GEOM_BOOST_PYTHON)
         ENDIF(WIN32 AND NOT BUILD_BOOST_PYTHON_STATIC)
 
 ENDIF(2GEOM_BOOST_PYTHON)
-
-
-

@@ -48,7 +48,7 @@ void wrap_shape();
 void wrap_line();
 void wrap_conic();
 void wrap_crossing();
-void wrap_convex_cover();
+void wrap_convex_hull();
 namespace Geom{
 class Point;
 class Linear;
