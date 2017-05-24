@@ -55,8 +55,15 @@ class PathSinkWrap: public Geom::PathSink, public wrapper<Geom::PathSink> {
     void flush() {this->get_override("flush")();}
 };
 
-std::string format_svg_path(Geom::PathVector* path, int prec = -1, bool optimize = false, bool shorthands = true) {
-    return Geom::write_svg_path(*path, prec, optimize, shorthands);
+std::string format_svg_pathvector(Geom::PathVector* pv, int prec = -1, bool optimize = false, bool shorthands = true) {
+    return Geom::write_svg_path(*pv, prec, optimize, shorthands);
+}
+BOOST_PYTHON_FUNCTION_OVERLOADS(format_svg_pathvector_overloads, format_svg_pathvector, 1,4)
+
+std::string format_svg_path(Geom::Path* path, int prec = -1, bool optimize = false, bool shorthands = true) {
+    Geom::PathVector pv;
+    pv.push_back(*path);
+    return Geom::write_svg_path(pv, prec, optimize, shorthands);
 }
 BOOST_PYTHON_FUNCTION_OVERLOADS(format_svg_path_overloads, format_svg_path, 1,4)
 
@@ -65,6 +72,7 @@ void wrap_parser() {
     def("parse_svg_path", parse_svg_path_str);
     def("read_svgd", Geom::read_svgd);
 
+    def("format_svg_path", format_svg_pathvector, format_svg_pathvector_overloads());
     def("format_svg_path", format_svg_path, format_svg_path_overloads());
 
     class_<PathSinkWrap, boost::noncopyable>("PathSink")
