@@ -39,6 +39,42 @@
 
 using namespace boost::python;
 
+struct Point_from_tuple{
+    Point_from_tuple(){
+        boost::python::converter::registry::push_back(
+            &convertible,
+            &construct,
+            boost::python::type_id<Geom::Point>()
+        );
+    }
+
+    // Determine if obj_ptr can be converted in a QString
+    static void* convertible(PyObject* obj_ptr){
+        if(!PyTuple_Check(obj_ptr)) return 0;
+
+        const boost::python::tuple tuple = boost::python::extract<boost::python::tuple>(obj_ptr);
+        if(boost::python::len(tuple) != 2) return 0;
+
+        return obj_ptr;
+    }
+
+    // Convert obj_ptr into a QString
+    static void construct(PyObject* obj_ptr, boost::python::converter::rvalue_from_python_stage1_data* data){
+        const boost::python::tuple tuple = boost::python::extract<boost::python::tuple>(obj_ptr);
+
+        void* storage = (
+            (boost::python::converter::rvalue_from_python_storage<Geom::Point>*)data
+        )->storage.bytes;
+
+        new (storage) Geom::Point(
+            boost::python::extract<double>(tuple[0]),
+            boost::python::extract<double>(tuple[1])
+        );
+        data->convertible = storage;
+    }
+};
+
+
 void wrap_etc() {
     // needed for roots
     class_<DoubleVec >("DoubleVec")
@@ -52,6 +88,7 @@ void wrap_etc() {
         .def(vector_indexing_suite<std::vector<Geom::Linear> >())
     ;
 
+    Point_from_tuple();
 };
 
 /*
